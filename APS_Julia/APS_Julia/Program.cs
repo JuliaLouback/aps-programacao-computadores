@@ -12,14 +12,17 @@ namespace APS_Julia
         {
 
             String opcao;
-            String id;
+            String opcao2;
+            String pesquisa;
+            int id;
             Boolean continuar = true;
             List<Biblioteca> listaLivros = new List<Biblioteca>();
-            List<Biblioteca> listaPesquisa = new List<Biblioteca>();
+            Biblioteca pesquisaLivro = null;
 
             do
             {
-                Console.WriteLine("Cadastro - Biblioteca" + Environment.NewLine);
+                Console.WriteLine("****************************");
+                Console.WriteLine("\nCadastro - Biblioteca" + Environment.NewLine);
                 Console.WriteLine("Menu" + Environment.NewLine);
                 Console.WriteLine("01 - Incluir");
                 Console.WriteLine("02 - Alterar");
@@ -29,18 +32,19 @@ namespace APS_Julia
                 Console.WriteLine("06 - Sair" + Environment.NewLine);
                 Console.WriteLine("Digite a opção desejada:");
                 opcao = Console.ReadLine();
+                Console.WriteLine("****************************");
 
                 switch (opcao)
                 {
                     case "01":
-                        listaLivros.Add(inserirLivro("0"));
+                        listaLivros.Add(inserirLivro(0));
                         break;
                     case "02":
                         Console.WriteLine("\nAlterar");
 
                         Console.WriteLine("Indique o Id:");
 
-                        id = Console.ReadLine();
+                        id = Convert.ToInt32(Console.ReadLine());
 
                         listaLivros.RemoveAll(x => x.Id == id);
 
@@ -48,13 +52,15 @@ namespace APS_Julia
 
                         break;
                     case "03":
-                        Console.WriteLine("Excluir" + Environment.NewLine);
+                        Console.WriteLine("\nExcluir" + Environment.NewLine);
 
                         Console.WriteLine("Indique o Id:");
 
-                        id = Console.ReadLine();
+                        id = Convert.ToInt32(Console.ReadLine());
 
                         listaLivros.RemoveAll(x => x.Id == id);
+
+                        Console.WriteLine();
 
                         Console.WriteLine("\nLivro excluído com sucesso!" + Environment.NewLine);
 
@@ -72,11 +78,54 @@ namespace APS_Julia
 
                         break;
                     case "05":
-                        Console.WriteLine("Pesquisar");
-                        Console.Write("Indique o Id: ");
+                        Console.WriteLine("\nPesquisar");
+                        Console.WriteLine("01 - Por Id");
+                        Console.WriteLine("02 - Por Nome");
+                        Console.WriteLine("03 - Por Autor");
+                        Console.WriteLine("04 - Por Editora");
 
-                        id = Console.ReadLine();
-                        listaLivros.Find(x => x.Id == id);
+                        Console.Write("\nIndique a opção: ");
+                        opcao2 = Console.ReadLine();
+
+                        switch (opcao2)
+                        {
+                            case "01":
+                                Console.Write("Insira o Id: ");
+                                pesquisa = Console.ReadLine();
+                                pesquisaLivro = listaLivros.Find(x => x.Id == Convert.ToInt32(pesquisa));
+                                break;
+                            case "02":
+                                Console.Write("Insira o Nome: ");
+                                pesquisa = Console.ReadLine();
+                                pesquisaLivro = listaLivros.Find(x => x.Nome == pesquisa);
+                                break;
+                            case "03":
+                                Console.Write("Insira o Autor: ");
+                                pesquisa = Console.ReadLine();
+                                pesquisaLivro = listaLivros.Find(x => x.Autor == pesquisa);
+                                break;
+                            case "04":
+                                Console.Write("Insira o Editora: ");
+                                pesquisa = Console.ReadLine();
+                                pesquisaLivro = listaLivros.Find(x => x.Editora == pesquisa);
+                                break;
+                            default:
+                                Console.WriteLine("Opção não existente!");
+                                break;
+
+                        }
+
+                        if (pesquisaLivro != null)
+                        {
+                            Console.WriteLine("\nId: " + pesquisaLivro.Id);
+                            Console.WriteLine("Nome: " + pesquisaLivro.Nome);
+                            Console.WriteLine("Autor: " + pesquisaLivro.Autor);
+                            Console.WriteLine("Editora: " + pesquisaLivro.Editora + Environment.NewLine);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nenhum elemento encontrado!");
+                        }
 
                         break;
 
@@ -91,36 +140,36 @@ namespace APS_Julia
             } while (continuar);
         }
 
-        private static Biblioteca inserirLivro(string id)
+        private static Biblioteca inserirLivro(int id)
         {
             Biblioteca livro = new Biblioteca();
 
-            if (id != "0")
+            if (id != 0)
             {
                 Console.WriteLine("\nEdição de Livro");
                 livro.Id = id;
-                Console.Write("Insira o nome: ");
+                Console.Write("\nInsira o nome: ");
                 livro.Nome = Console.ReadLine();
                 Console.Write("Insira o autor: ");
                 livro.Autor = Console.ReadLine();
                 Console.Write("Insira a editora: ");
-                livro.Editora = Console.ReadLine() + Environment.NewLine;
+                livro.Editora = Console.ReadLine();
 
-                Console.WriteLine("Edição efetuada com sucesso!");
+                Console.WriteLine("\nEdição efetuada com sucesso!\n");
             }
             else
             {
                 Console.WriteLine("\nCadastro de Livro");
-                Console.Write("Insira o id: ");
-                livro.Id = Console.ReadLine();
+                Console.Write("\nInsira o id: ");
+                livro.Id = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Insira o nome: ");
                 livro.Nome = Console.ReadLine();
                 Console.Write("Insira o autor: ");
                 livro.Autor = Console.ReadLine();
                 Console.Write("Insira a editora: ");
-                livro.Editora = Console.ReadLine() + Environment.NewLine;
+                livro.Editora = Console.ReadLine();
 
-                Console.WriteLine("Cadastro efetuado com sucesso!");
+                Console.WriteLine("\nCadastro efetuado com sucesso!\n");
             }
             return livro;
         }
