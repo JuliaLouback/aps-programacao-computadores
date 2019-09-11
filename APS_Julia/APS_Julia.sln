@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APS_Julia", "APS_Julia\APS_Julia.csproj", "{6AF358FD-6200-44E8-A742-5B14D253CD25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AF358FD-6200-44E8-A742-5B14D253CD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF358FD-6200-44E8-A742-5B14D253CD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF358FD-6200-44E8-A742-5B14D253CD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF358FD-6200-44E8-A742-5B14D253CD25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC43774E-76C5-46E0-A749-50C78EB8B0CB}
+	EndGlobalSection
+EndGlobal
