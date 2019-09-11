@@ -42,9 +42,23 @@ namespace APS_Julia
                     case "02":
                         Console.WriteLine("\nAlterar");
 
-                        Console.WriteLine("Indique o Id:");
+                        Console.WriteLine("\nIndique o Id:");
 
                         id = Convert.ToInt32(Console.ReadLine());
+
+                        pesquisaLivro = listaLivros.Find(x => x.Id == id);
+
+                        if (pesquisaLivro != null)
+                        {
+                            Console.WriteLine("\nId: " + pesquisaLivro.Id);
+                            Console.WriteLine("Nome: " + pesquisaLivro.Nome);
+                            Console.WriteLine("Autor: " + pesquisaLivro.Autor);
+                            Console.WriteLine("Editora: " + pesquisaLivro.Editora + Environment.NewLine);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nenhum elemento encontrado!");
+                        }
 
                         listaLivros.RemoveAll(x => x.Id == id);
 
@@ -138,6 +152,8 @@ namespace APS_Julia
                         break;
                 }
             } while (continuar);
+
+            Console.ReadKey();
         }
 
         private static Biblioteca inserirLivro(int id)
@@ -175,6 +191,6 @@ namespace APS_Julia
         }
 
 
-
+        
     }
 }
