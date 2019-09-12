@@ -8,16 +8,14 @@ namespace APS_Julia
 {
     class Program
     {
+        private static List<Biblioteca> listaLivros = new List<Biblioteca>(); 
         static void Main(string[] args)
         {
 
             String opcao;
-            String opcao2;
-            String pesquisa;
             int id;
             Boolean continuar = true;
-            List<Biblioteca> listaLivros = new List<Biblioteca>();
-            Biblioteca pesquisaLivro = null;
+            Biblioteca pesquisaLivro;
 
             do
             {
@@ -81,68 +79,12 @@ namespace APS_Julia
                         break;
                     case "04":
                         Console.WriteLine("\nListagem" + Environment.NewLine);
-
-                        foreach (Biblioteca livrinhos in listaLivros)
-                        {
-                            Console.WriteLine("Id: " + livrinhos.Id);
-                            Console.WriteLine("Nome: " + livrinhos.Nome);
-                            Console.WriteLine("Autor: " + livrinhos.Autor);
-                            Console.WriteLine("Editora: " + livrinhos.Editora + Environment.NewLine);
-                        }
-
+                        listagem();
                         break;
                     case "05":
                         Console.WriteLine("\nPesquisar");
-                        Console.WriteLine("01 - Por Id");
-                        Console.WriteLine("02 - Por Nome");
-                        Console.WriteLine("03 - Por Autor");
-                        Console.WriteLine("04 - Por Editora");
-
-                        Console.Write("\nIndique a opção: ");
-                        opcao2 = Console.ReadLine();
-
-                        switch (opcao2)
-                        {
-                            case "01":
-                                Console.Write("Insira o Id: ");
-                                pesquisa = Console.ReadLine();
-                                pesquisaLivro = listaLivros.Find(x => x.Id == Convert.ToInt32(pesquisa));
-                                break;
-                            case "02":
-                                Console.Write("Insira o Nome: ");
-                                pesquisa = Console.ReadLine();
-                                pesquisaLivro = listaLivros.Find(x => x.Nome == pesquisa);
-                                break;
-                            case "03":
-                                Console.Write("Insira o Autor: ");
-                                pesquisa = Console.ReadLine();
-                                pesquisaLivro = listaLivros.Find(x => x.Autor == pesquisa);
-                                break;
-                            case "04":
-                                Console.Write("Insira o Editora: ");
-                                pesquisa = Console.ReadLine();
-                                pesquisaLivro = listaLivros.Find(x => x.Editora == pesquisa);
-                                break;
-                            default:
-                                Console.WriteLine("Opção não existente!");
-                                break;
-
-                        }
-
-                        if (pesquisaLivro != null)
-                        {
-                            Console.WriteLine("\nId: " + pesquisaLivro.Id);
-                            Console.WriteLine("Nome: " + pesquisaLivro.Nome);
-                            Console.WriteLine("Autor: " + pesquisaLivro.Autor);
-                            Console.WriteLine("Editora: " + pesquisaLivro.Editora + Environment.NewLine);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Nenhum elemento encontrado!");
-                        }
-
+                        pesquisar();
                         break;
-
                     case "06":
                         Console.WriteLine("Seu aplicativo foi encerrado!");
                         continuar = false;
@@ -190,7 +132,72 @@ namespace APS_Julia
             return livro;
         }
 
+        private static Biblioteca listagem()
+        {
+            foreach (Biblioteca livrinhos in listaLivros)
+            {
+                Console.WriteLine("Id: " + livrinhos.Id);
+                Console.WriteLine("Nome: " + livrinhos.Nome);
+                Console.WriteLine("Autor: " + livrinhos.Autor);
+                Console.WriteLine("Editora: " + livrinhos.Editora + Environment.NewLine);
+            }
+            return null;
+        }
 
-        
+        private static Biblioteca pesquisar()
+        {
+            String opcao2;
+            String pesquisa;
+            Biblioteca pesquisaLivro = null;
+
+            Console.WriteLine("01 - Por Id");
+            Console.WriteLine("02 - Por Nome");
+            Console.WriteLine("03 - Por Autor");
+            Console.WriteLine("04 - Por Editora");
+
+            Console.Write("\nIndique a opção: ");
+            opcao2 = Console.ReadLine();
+
+            switch (opcao2)
+            {
+                case "01":
+                    Console.Write("Insira o Id: ");
+                    pesquisa = Console.ReadLine();
+                    pesquisaLivro = listaLivros.Find(x => x.Id == Convert.ToInt32(pesquisa));
+                    break;
+                case "02":
+                    Console.Write("Insira o Nome: ");
+                    pesquisa = Console.ReadLine();
+                    pesquisaLivro = listaLivros.Find(x => x.Nome == pesquisa);
+                    break;
+                case "03":
+                    Console.Write("Insira o Autor: ");
+                    pesquisa = Console.ReadLine();
+                    pesquisaLivro = listaLivros.Find(x => x.Autor == pesquisa);
+                    break;
+                case "04":
+                    Console.Write("Insira o Editora: ");
+                    pesquisa = Console.ReadLine();
+                    pesquisaLivro = listaLivros.Find(x => x.Editora == pesquisa);
+                    break;
+                default:
+                    Console.WriteLine("Opção não existente!");
+                    break;
+
+            }
+
+            if (pesquisaLivro != null)
+            {
+                Console.WriteLine("\nId: " + pesquisaLivro.Id);
+                Console.WriteLine("Nome: " + pesquisaLivro.Nome);
+                Console.WriteLine("Autor: " + pesquisaLivro.Autor);
+                Console.WriteLine("Editora: " + pesquisaLivro.Editora + Environment.NewLine);
+            }
+            else
+            {
+                Console.WriteLine("Nenhum elemento encontrado!");
+            }
+            return null;
+        }
     }
 }
