@@ -12,5 +12,9 @@ namespace APS_Julia
         public string Nome { get; set; }
         public string Autor { get; set; }
         public string Editora { get; set; }
+
+        public string  DataLancamento { get; set; }
+
+        public float Preco { get; set; }
     }
 }

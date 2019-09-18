@@ -8,21 +8,24 @@ namespace APS_Julia
 {
     class Program
     {
-        private static List<Biblioteca> listaLivros = new List<Biblioteca>(); 
+        private static List<Biblioteca> listaLivros = new List<Biblioteca>();
+        private static String opcao;
+        private static String opcao2;
+        private static String pesquisa;
+        private static int id;
+        private static int opcaoExcluir;
+        private static Boolean continuar = true;
+        private static Biblioteca pesquisaLivro;
+
         static void Main(string[] args)
         {
-
-            String opcao;
-            int id;
-            Boolean continuar = true;
-            Biblioteca pesquisaLivro;
 
             do
             {
                 Console.WriteLine("****************************");
                 Console.WriteLine("\nCadastro - Biblioteca" + Environment.NewLine);
-                Console.WriteLine("Menu" + Environment.NewLine);
-                Console.WriteLine("01 - Incluir");
+                Console.WriteLine("Menu - Possui "+ listaLivros.Count+" livros cadastrados");
+                Console.WriteLine("\n01 - Incluir");
                 Console.WriteLine("02 - Alterar");
                 Console.WriteLine("03 - Excluir");
                 Console.WriteLine("04 - Listar");
@@ -44,23 +47,7 @@ namespace APS_Julia
 
                         id = Convert.ToInt32(Console.ReadLine());
 
-                        pesquisaLivro = listaLivros.Find(x => x.Id == id);
-
-                        if (pesquisaLivro != null)
-                        {
-                            Console.WriteLine("\nId: " + pesquisaLivro.Id);
-                            Console.WriteLine("Nome: " + pesquisaLivro.Nome);
-                            Console.WriteLine("Autor: " + pesquisaLivro.Autor);
-                            Console.WriteLine("Editora: " + pesquisaLivro.Editora + Environment.NewLine);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Nenhum elemento encontrado!");
-                        }
-
-                        listaLivros.RemoveAll(x => x.Id == id);
-
-                        listaLivros.Add(inserirLivro(id));
+                        alterar(id);
 
                         break;
                     case "03":
@@ -70,11 +57,7 @@ namespace APS_Julia
 
                         id = Convert.ToInt32(Console.ReadLine());
 
-                        listaLivros.RemoveAll(x => x.Id == id);
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("\nLivro excluído com sucesso!" + Environment.NewLine);
+                        excluir(id);
 
                         break;
                     case "04":
@@ -112,7 +95,10 @@ namespace APS_Julia
                 livro.Autor = Console.ReadLine();
                 Console.Write("Insira a editora: ");
                 livro.Editora = Console.ReadLine();
-
+                Console.Write("Insira a data de lançamento (Dia/Mês/Ano): ");
+                livro.DataLancamento = Console.ReadLine();
+                Console.Write("Insira o preço: ");
+                livro.Preco = Convert.ToSingle(Console.ReadLine());
                 Console.WriteLine("\nEdição efetuada com sucesso!\n");
             }
             else
@@ -126,7 +112,10 @@ namespace APS_Julia
                 livro.Autor = Console.ReadLine();
                 Console.Write("Insira a editora: ");
                 livro.Editora = Console.ReadLine();
-
+                Console.Write("Insira a data de lançamento (Dia/Mês/Ano): ");
+                livro.DataLancamento = Console.ReadLine();
+                Console.Write("Insira o preço: ");
+                livro.Preco = Convert.ToSingle(Console.ReadLine());
                 Console.WriteLine("\nCadastro efetuado com sucesso!\n");
             }
             return livro;
@@ -139,16 +128,15 @@ namespace APS_Julia
                 Console.WriteLine("Id: " + livrinhos.Id);
                 Console.WriteLine("Nome: " + livrinhos.Nome);
                 Console.WriteLine("Autor: " + livrinhos.Autor);
-                Console.WriteLine("Editora: " + livrinhos.Editora + Environment.NewLine);
+                Console.WriteLine("Editora: " + livrinhos.Editora);
+                Console.WriteLine("Data de Lançamento: " + livrinhos.DataLancamento);
+                Console.WriteLine("Preço: " + livrinhos.Preco + Environment.NewLine);
             }
             return null;
         }
 
         private static Biblioteca pesquisar()
         {
-            String opcao2;
-            String pesquisa;
-            Biblioteca pesquisaLivro = null;
 
             Console.WriteLine("01 - Por Id");
             Console.WriteLine("02 - Por Nome");
@@ -181,7 +169,7 @@ namespace APS_Julia
                     pesquisaLivro = listaLivros.Find(x => x.Editora == pesquisa);
                     break;
                 default:
-                    Console.WriteLine("Opção não existente!");
+                    Console.WriteLine("\nOpção não existente!");
                     break;
 
             }
@@ -195,8 +183,56 @@ namespace APS_Julia
             }
             else
             {
+                Console.WriteLine("\nNenhum elemento encontrado!");
+            }
+            return null;
+        }
+
+        private static Biblioteca excluir(int id)
+        {
+            Console.WriteLine("Deseja excluir esse registro?");
+            Console.WriteLine("01 - Sim");
+            Console.WriteLine("02 - Não\n");
+            Console.WriteLine("Insira a opção desejada:");
+
+            opcaoExcluir = Convert.ToInt32(Console.ReadLine());
+
+            if (opcaoExcluir == 01)
+            {
+
+                listaLivros.RemoveAll(x => x.Id == id);
+
+                Console.WriteLine("\nLivro excluído com sucesso!\n");
+            }
+            else
+            {
+                Console.WriteLine("\nExclusão cancelada!\n");
+            }
+            return null;
+        }
+
+        private static Biblioteca alterar(int id)
+        {
+            pesquisaLivro = listaLivros.Find(x => x.Id == id);
+
+            if (pesquisaLivro != null)
+            {
+                Console.WriteLine("\nId: " + pesquisaLivro.Id);
+                Console.WriteLine("Nome: " + pesquisaLivro.Nome);
+                Console.WriteLine("Autor: " + pesquisaLivro.Autor);
+                Console.WriteLine("Editora: " + pesquisaLivro.Editora);
+                Console.WriteLine("Data de Lançamento: " + pesquisaLivro.DataLancamento);
+                Console.WriteLine("Preço: " + pesquisaLivro.Preco + Environment.NewLine);
+            }
+            else
+            {
                 Console.WriteLine("Nenhum elemento encontrado!");
             }
+
+            listaLivros.RemoveAll(x => x.Id == id);
+
+            listaLivros.Add(inserirLivro(id));
+
             return null;
         }
     }
