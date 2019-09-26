@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace APS_Julia
 {
@@ -17,8 +18,10 @@ namespace APS_Julia
         private static Boolean continuar = true;
         private static Biblioteca pesquisaLivro;
 
+
         static void Main(string[] args)
         {
+            ler();
 
             do
             {
@@ -30,7 +33,9 @@ namespace APS_Julia
                 Console.WriteLine("03 - Excluir");
                 Console.WriteLine("04 - Listar");
                 Console.WriteLine("05 - Pesquisar");
-                Console.WriteLine("06 - Sair" + Environment.NewLine);
+                Console.WriteLine("06 - Sair");
+                Console.WriteLine("07 - Salvar" + Environment.NewLine);
+                // Console.WriteLine("08 - Ler");
                 Console.WriteLine("Digite a opção desejada:");
                 opcao = Console.ReadLine();
                 Console.WriteLine("****************************");
@@ -71,6 +76,14 @@ namespace APS_Julia
                     case "06":
                         Console.WriteLine("Seu aplicativo foi encerrado!");
                         continuar = false;
+                        break;
+                    case "07":
+                        Console.WriteLine("Seu arquivo de texto foi criado!");
+                        salvar();
+                        break;
+                    case "08":
+                        Console.WriteLine("Seu arquivo de texto foi lido!");
+                        ler();
                         break;
                     default:
                         Console.WriteLine("Opção não existente!");
@@ -118,6 +131,8 @@ namespace APS_Julia
                 livro.Preco = Convert.ToSingle(Console.ReadLine());
                 Console.WriteLine("\nCadastro efetuado com sucesso!\n");
             }
+
+
             return livro;
         }
 
@@ -233,6 +248,29 @@ namespace APS_Julia
 
             listaLivros.Add(inserirLivro(id));
 
+            return null;
+        }
+
+        private static Biblioteca salvar()
+        {
+            string json = JsonConvert.SerializeObject(listaLivros.ToArray());
+
+            //write string to file
+            System.IO.File.WriteAllText(@"C:\Projetos\teste.txt", json);
+        
+            return null;
+        }
+
+        private static Biblioteca ler()
+        {
+            string jsonFilePath = @"C:\Projetos\teste.txt";
+
+            string json = System.IO.File.ReadAllText(jsonFilePath);
+
+            Biblioteca[] lista = JsonConvert.DeserializeObject<Biblioteca[]>(json);
+
+            listaLivros = lista.ToList();
+            Console.WriteLine();
             return null;
         }
     }
